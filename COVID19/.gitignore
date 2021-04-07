@@ -1,0 +1,24 @@
+__pycache__/
+data/backups/
+data/headline_sentiment.csv
+data/wsj_headlines_nov112019.csv.csv
+data/wsj_headlines.csv
+jhp_logo.png
+.ipynb_checkpoints/
+jupyter/data/
+jupyter/.ipynb_checkpoints/
+jupyter/NLP WSJ Headlines.ipynb
+linkedin/
+marcus/better_way.sql
+news_titles/
+private/
+test_os.py
+test_out.txt
+test_wsj_article_content.py
+venv/
+get-pip.py
+get_sentiment_headlines.log
+get_wsj_news.log
+load_jhp_data_to_bigquery.log
+output.log
+jupyter/BigQuery COVID-19 Exploratory Analysis.ipynb

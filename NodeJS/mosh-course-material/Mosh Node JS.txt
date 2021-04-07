@@ -1,0 +1,3 @@
+# Building/Creating a new application
+    - first-app
+        - app.js -> node app.js

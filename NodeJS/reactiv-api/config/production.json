@@ -1,0 +1,14 @@
+{
+    "name": "My express app - production",
+    "mail": {
+        "host": "prod-mail-server"
+    },
+    "db": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "\reactiv-309904-cca515d4f801.json",
+        "CLOUD_SQL_CONNECTION_NAME": "reactiv-309904:us-central1:reactiv-mysql",
+        "DB_NAME": "db_reactive",
+        "DB_USER": "root",
+        "DB_PASS": "root",
+        "DB_HOST": "104.197.72.78"
+    }
+}

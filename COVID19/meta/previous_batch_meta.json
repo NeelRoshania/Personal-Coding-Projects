@@ -1,0 +1,52 @@
+{
+    "bq_info": {
+        "covid_project": {
+            "BQ_Authentication": 1,
+            "CSSEGISandData_found": 1,
+            "dataset_id": "covid19",
+            "project_id": "covid19-2020-272000",
+            "start_big_query": 1,
+            "table_cases": "cases"
+        },
+        "headline_sentiment_analysis": {
+            "BQ_Authentication": 1,
+            "dataset_id": "covid19",
+            "project_id": "covid19-2020-272000",
+            "start_big_query": 1,
+            "table": "sentiments_magnitudes"
+        },
+        "wsj_project": {
+            "BQ_Authentication": 1,
+            "dataset_id": "covid19",
+            "project_id": "covid19-2020-272000",
+            "start_big_query": 1,
+            "table_cases": "articles"
+        }
+    },
+    "headline_sentiment_analysis_meta": {
+        "keep_updating": 1,
+        "kill_process": 0,
+        "pull_cycle_hr": 24
+    },
+    "meta": {
+        "bath_rows_before": 89120,
+        "keep_updating": 1,
+        "kill_process": 0,
+        "pull_cycle_hr": 4
+    },
+    "sources": {
+        "confirmed": "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv",
+        "deaths": "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv",
+        "recovered": "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
+    },
+    "wsj_extraction": {
+        "got_headlines": 1
+    },
+    "wsj_meta": {
+        "keep_updating": 1,
+        "kill_process": 0,
+        "pull_cycle_hr": 24,
+        "timeline_of_update_days": -160,
+        "update_history": 0
+    }
+}

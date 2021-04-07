@@ -1,0 +1,1 @@
+All pug html templates stored here for external reference

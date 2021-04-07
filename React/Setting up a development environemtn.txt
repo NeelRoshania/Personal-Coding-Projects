@@ -1,0 +1,279 @@
+1. Install NodeJS, https://nodejs.org/en/
+	- Use npm (node package manager only)
+
+2. Create a new react app
+	- npm i -g create-react-app@1.5.2
+		- This fails! Install default! Do not use 1.5.2
+	- *specific version for source tutorial
+
+3. Install Visual Studion
+	- Install extensions
+		- "Simple React Snippets", Burke Holland
+		- "Prettier - Code Formatter", Esben Petersen
+
+4. Configure VS studio
+	- Check "Format on Save"
+
+5. Create a new react application* (Don't know how different to 2)
+	- Create react app
+		- npx create-react-app hello_world
+		- create-react-app react-app (call it whatever you want)
+	- Key applications installed
+		- Development Server
+		- Webpack
+		- Babel - JSX interpreter
+	- npm run eject
+		- To configure app for production
+
+5. Start App
+	- npm start
+
+Definitions
+
+Babel
+Babel is a free and open-source JavaScript transcompiler that is mainly used to convert ECMAScript 2015+ code into a backward-compatible version of JavaScript that can be run by older JavaScript engines
+
+
+Sources
+https://www.youtube.com/watch?v=Ke90Tje7VS0&list=FL3bFNv_63XLr9sR2PNskCzA
+
+
+# Building the App
+1. Delete all files from src
+2. Create index.js in src
+
+
+# Creating a new project
+1. create-react-app counter-app2
+2. Test by npm start
+3. Install bootstrap
+	- Toggle VSCode Toggle Terminal Ctrl `
+	- npm install bootstrap
+4. index.js
+	- import 'bootstrap/dist/css.bootstrap.css'
+	- save and check if styling has changed in localhost
+
+# Creating a component: counter-app
+1. Add folder components 'camelCase'
+	- Add counter.jsx
+2. Using Simple React Snippets VS add in,
+	- import react component, imrc
+	- create component class, cc 
+	- save changes
+	- return to index.js
+	- import component
+	- replace 1st argument with <Component />
+	- test if working 
+
+3. Dynamic handling: counter-app
+	- In Component Class, refer to JSON state
+	- Nest respective variables in there
+	- Call using {} in JSX
+
+4. Setting JSX attrinutes: counter-app
+	- <img src="" alt="">
+		- whatever inside "" is rendered as static text
+		- this attribute needs to change dynamically
+		- store attriute in state
+		- refer to {property} in JSX
+	- css style
+		- create js json object with css attributes
+		- refer to {object} in JSX
+
+		- example
+			    // js object to handle css styling in JSX
+				styles = {
+					fontSize: 10, // '10px' 
+					fontWeight: "bold"
+				};
+
+
+				// rendering
+				render() { 
+
+					// JSX instead of React.createElement
+					// return <h1>Hello World</h1><button>Incerement</button>; // Babel doesn't know what to do with this
+					return ( 
+
+						// Reac.Fragment instead of <div>, stops the DOM from generating additional div's
+						// {this.state.count}
+						<React.Fragment>
+							
+							{/* <img src={this.state.imageUrl} alt=""></img> */}
+							
+							{/* class is a reserve keyword in js. Can integrate boostrap classes into attributes, provided the library is installed */}
+							<span style={this.styles} className="badge badge-primary m-2">{ this.formatCount() }</span>
+							
+							{/* example above uses styles object to control entire html element. Control specific properties using below notation */}
+							<button style={ { fontSize: 30 } }className="btn btn-secondary btn-sm">Increment</button>
+						
+						</React.Fragment> // compiled expression to div instead of 2 components
+					);
+				}
+
+5. Rendering a list of items
+	- add new property to state
+	- in render,  us <ul> JSX with li's
+	- JSX is not a templating engine, so there is no looping
+	- map each element of arrays onto JSX list
+		- {/* looping over a state property array */}
+			<ul>
+				{ this.state.tags.map( tag => <li>{ tag }</li> ) }
+			</ul>
+		- map each value in tags array to a JSX list expression
+
+	- Each child in a list should have a unique "key" prop
+		- <ul>
+			{ this.state.tags.map( tag => <li key={tag} >{ tag }</li> ) }
+		</ul>
+
+6. Conditional rendering
+	1. JSX is not a templating engine, so no if statements
+	2. Use JavaScript specifically,
+		- another method to control the output, renderTags()
+	3. Truthey vs Falsey
+		- Applying logical && between non boolean values
+		- { this.state.tags.length === 0 && "Please create a new tag." }
+        - Js tries to covert non-boolean into a boolean using the conversion of Truthy and Falsey
+
+7. Handling events: handleIncrements()
+	- "on.." standard event handling
+	- Define method, handleIncrement()
+	- No access to "this" variables in event method, so need to bind them!
+	- "this" behaves differently in js
+	- therefore create a constructor, that has access to this.
+		- constructor is a method that is called when the object is instantiated
+
+8. Updating state properties: handleIncrements()
+	- this.state.count++ won't work because react is not aware to it
+	- Use this.setState(); standard React Method to update state properties
+
+9. Passing event arguments: handleIncrements()
+	- pass function references
+	- temporarily create another function in arrow function syntaxt
+		- doHandleIncremeent()
+
+## Composing components
+	1. Pass Data
+	2. Raise and Handle events
+	3. Multiply components Sync
+	4. Functional components
+	5. Lifecycle Hooks
+
+1. Building trees of components: Counters.jsx
+	1. Need more than one component
+	2. Create a separate component named in the plural e.g. Counters
+	3. Import Counter into Counters.jsx
+	4. Render each component with a unique id, arrow function
+
+
+2. Passing External Data to Components for use internally: Counter.jsx
+	1. Properties of the Component class, when initialized holds props.
+	2. Props is an objected unique to each component that holds data of,
+		- value of properties when the component is called
+	3. This is how external data can be used internally
+	4. And it's also how the component differentiates itself by its state
+	5. In state, refer to actual property used when the component is called
+
+3. Passing children to Components: counter.jsx
+	1. Passing content between the opening and closing tags of the Component
+	2. **Children must be rendered within the component
+
+# Debugging React applications
+1. Download React Developer Tools, https://reactjs.org/blog/2015/09/02/new-react-developer-tools.html#installation
+
+# Props vs state
+1. State is internal to a component
+2. Props object hold values of attributes specified when the component was initialized
+	- It's read only! This means that values cannot be changed within the component (It's an input to the component!)
+
+
+# Raising and handling events
+1. Example -> Raising an event to delete a component
+	- **The component that OWNS a piece of the state, should be the one modifying it
+		- List of counters in Counters 'state' should be removed by the Counters component
+			- The state property is private though
+		- Since the delete button is in Counter, how can it communicate to the Counters state?
+			- "onAction"
+	- Counter will raise an event, onDelete, and Counters will handle it with "handleAction"
+	- Implementation
+		- In Counters
+			- create a method called handleDelete
+			- specify new property, onDelete, in child component (Counter)
+		- In Counter
+			- In delete button, specify property onClick and set to props.OnDelete
+				- props.onDelete recieved from Counters component
+		- Updating the state
+			- Each component is rendered based on the number of counters in state of Counters, 
+			- We use an arrow function in Counter to send the id property to the event handler, handleDelete
+
+# Single source of truth: handleIncrement -> Counters.jsx
+	- The state is called once when the component is initialized
+		- For parent components, their states won't be updated
+	- Any changes to state through props will not be reflected if an event attempts to do so
+	- Implementation
+		- Take note of primary parents. Only these states will be updated, and not those of the children
+		- In the parent, create a method to update the state
+		- Pass the method to the child, access the method and pass the component ID as an argument to the child's event method (onClick)
+			- Since the props property of the child includes a reference of the component in the parent's state component, this id should be used
+		- Execute the method
+
+# Multiple Components in Sync
+	- In the case where there is not parent child relationship, but information needs to be communicated, the state needs to be lifted up to the App component
+	- Change structure to;
+		- App
+			1. Counters
+				1. Counter
+			2. NavBar
+	
+	- Lifting the state up: App.js
+		- Move all methods and states to the parent components
+		- Pass previously referenced methods to props
+			- Modify properties of App.js children components to pass methods to a child via props
+	
+# Stateless functional components: NavBar.jsx
+	- Within components, all data is received from props
+	- Instead of using a class to define a component, we can use a function
+	- set const Component to a functional component
+		- nest return statement inside function
+	- props is no longer part of the class, so it needs to be passed into the function directly. React will handlle the argument
+	- shortcut: sfc (statless functional components)
+
+# Destructuring Arguments
+	- Using object destructing to avoid calling props every time you need it
+	- For stateless functional components: NavBar.jsx
+		- Wrap sfc in ( {property_of_interest} )
+			- e.g. ( {totalCounters} )
+	- For class components: counters.jsx
+		- define const { onReset, counters, onDelete, onIncrement } = this.props;
+
+# Component Lifecycle hooks: App.js
+	- Component Lifecycles
+		- Mount -> Instance of a component is created and inserted into the DOM
+		...
+	- A Lifecycle hook is a special method that can be called during each phase of their lifecycles
+		- Insert these methods into components to be called on, in this case, Mount
+		- They will be called when the component is in a specific phase
+		- Methods in order of being called
+
+		** These are some of the frequently called ones, there are many more
+			1. Mount Phase
+				- constructor()
+				- render()
+				- componentDidMount()
+
+			2. Update Phase -> Called when props of a component gets changed
+				- render()
+				- componentDidMount()
+				- componentDidUpdate()
+
+			3. Unmount -> Called before component is removed from the DOM
+				- componentWillUnmount()
+			
+		- Notes
+			- When called, use super() to call the constructor of the parent class
+			- When render() called, all it's children are rendered recursively
+			- ** Lifecyles hooks can't be called when using stateless functional components	
+			- Whenever each phase is called, the appropriate methods above will be called
+				- Update phase initiated with methods such as setState()
+			

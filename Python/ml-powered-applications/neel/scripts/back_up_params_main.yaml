@@ -1,0 +1,25 @@
+project_path: 'C:\Users\nrosh\Desktop\Personal Coding Projects\Python\ml-powered-applications\neel'
+data_path: 'C:\Users\nrosh\Desktop\Personal Coding Projects\Python\ml-powered-applications\neel\data'
+pretrained_models: {
+  kmeans: {
+    model_location:  '..\..\pretrained_models\kmeans_optimal.joblib',
+    yaml_location:   '..\..\pretrained_models\kmeans_optimal.yaml',
+  }
+} 
+data_sources: {
+  bokeh_data:  'labelling',
+  bokeh_cluster_data: 'kmean_clusteral_predictions',
+  umap_vector_embeddings: 'labelling\umap_vector_embeddings',
+  clean_questions: 'out\cleaned_data',
+}
+data_logs: {
+  predict_kmeansClusters: {
+    exists: False,
+    loc: 'logs\log_predict_kmeansClusters'
+    },
+  optimize_kmeansClusters: {
+    exists: False,
+    loc: 'logs\log_kmeans_optimization'
+  }
+}
+

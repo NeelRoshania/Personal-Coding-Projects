@@ -1,0 +1,20 @@
+{
+  "bq_info": {
+    "headline_sentiment_analysis": {
+      "BQ_Authentication": 1,
+      "dataset_id": "covid19",
+      "project_id": "covid19-2020-272000",
+      "start_big_query": 1,
+      "table": "sentiments_magnitudes"
+    }
+  },
+  "headline_sentiment_analysis_meta": {
+    "keep_updating": 1,
+    "kill_process": 0,
+    "pull_cycle_hr": 24,
+    "update_history": 0,
+    "update_all": 0,
+    "update_start": "2020-04-24",
+    "update_end": "2020-04-24"
+  }
+}

@@ -1,0 +1,30 @@
+data_logs:
+  prepare_posts:
+    exists: true
+    loc: logs\log_prepare_posts
+  optimize_kmeansClusters:
+    exists: true
+    loc: logs\log_kmeans_optimization
+  predict_kmeansClusters:
+    exists: true
+    loc: logs\log_predict_kmeansClusters
+  xml_parser:
+    exists: true
+    loc: logs\log_xml_parser
+data_path: C:\Users\nrosh\Desktop\Personal Coding Projects\Python\ml-powered-applications\neel\data
+data_sources:
+  bokeh_cluster_data: kmean_clusteral_predictions
+  bokeh_data: labelling
+  clean_questions: out\cleaned_posts
+  umap_vector_embeddings: labelling\umap_vector_embeddings
+  raw_xml:
+    stackexchange_writers: 
+      path: sources\stackexchange\writers\xml
+      files: ['Posts']
+  raw_csv:
+    stackexchange_writers: sources\stackexchange\writers\csv
+pretrained_models:
+  kmeans:
+    model_location: ..\..\pretrained_models\kmeans_optimal.joblib
+    yaml_location: ..\..\pretrained_models\kmeans_optimal.yaml
+project_path: C:\Users\nrosh\Desktop\Personal Coding Projects\Python\ml-powered-applications\neel

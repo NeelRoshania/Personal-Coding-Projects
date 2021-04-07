@@ -1,0 +1,12 @@
+{
+    "name": "Reactiv API",
+    "db": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "\reactiv-309904-cca515d4f801.json",
+        "GOOGLE_PROJECT_ID": "reactiv",
+        "INSTANCE_CONNECTION_NAME": "reactiv-309904:us-central1:reactiv-mysql",
+        "DB_NAME": "db_reactive",
+        "DB_USER": "root",
+        "DB_PASS": "root",
+        "DB_HOST": "104.197.72.78"
+    }
+}

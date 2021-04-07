@@ -1,5 +1,4 @@
 # Reactiv API
-
 <br/><br/>
 - Stack
     - NodeJS
@@ -13,7 +12,6 @@
     - Get all associates: /associates/all
     - Create new associate: /associates/newassociate
     - Delete existing associate: /associates/delete/id
-
 <br/><br/>
 - NTH
     - Test DB -> Integrate Cloud SQL Auth Proxy 

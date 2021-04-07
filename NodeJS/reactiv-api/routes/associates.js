@@ -71,9 +71,24 @@ router.post('/newassociate', async (req, res) => {
     const query = "INSERT INTO associate (firstName, lastName, department) VALUES (?, ?, ?)";
     pool.query(query, Object.values(data), (error) => {
         if (error) {
-        res.json({ status: "failure", reason: error.code  });
+            res.json({ status: "failure", reason: error.code  });
         } else {
-        res.json({ status: "Successfully inserted new associate", data: data});
+            res.json({ status: "Successfully inserted new associate", data: data});
+        }
+    });
+});
+
+// delete an existing associate
+router.post('/delete/:id', async (req, res) => {
+    
+    // define query
+    const query = "DELETE FROM associate where ID = ?";
+
+    pool.query(query, [ req.params.id ], (error) => {
+        if (error) {
+            res.json({ status: "failure", reason: error.code  });
+        } else {
+            res.json({ status: "Successfully deleted row"});
         }
     });
 });

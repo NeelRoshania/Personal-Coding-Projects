@@ -1,16 +1,23 @@
 # Reactiv API
 
-## Application Notes
 <br/><br/>
+- Stack
+    - NodeJS
+    - GCP Cloud MySQL
+    - Docker
+- Cloud MySQL Schema
+    - db_reactive.associate
+<br/><br/>
+- Service: https://reactiv-service-jl6ggguuqq-uc.a.run.app
 - Routes
-    - /associates/all: get all associates
-    - /associates/newassociate:  insert a new row in associate table
+    - Get all associates: /associates/all
+    - Create new associate: /associates/newassociate
+    - Delete existing associate: /associates/delete/id
 
-## Dev Notes
 <br/><br/>
-- Known bugs
-    - Test database not setup
-
+- NTH
+    - Test DB -> Integrate Cloud SQL Auth Proxy 
+    - Complete Integration testing
 
 
 

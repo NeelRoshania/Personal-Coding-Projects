@@ -1,5 +1,4 @@
 # Reactiv API
-<br/><br/>
 - Stack
     - NodeJS
     - GCP Cloud MySQL
@@ -9,6 +8,7 @@
 <br/><br/>
 - Service: https://reactiv-service-jl6ggguuqq-uc.a.run.app
 - Routes
+    - Home: /associates/
     - Get all associates: /associates/all
     - Create new associate: /associates/newassociate
     - Delete existing associate: /associates/delete/id
@@ -16,6 +16,8 @@
 - NTH
     - Test DB -> Integrate Cloud SQL Auth Proxy 
     - Complete Integration testing
+- Known Bugs
+    - Delete operations continues without checking if entry exists
 
 
 

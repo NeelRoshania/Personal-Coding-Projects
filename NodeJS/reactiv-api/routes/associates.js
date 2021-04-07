@@ -23,7 +23,7 @@ const router = express.Router();        // define router object for each route
 router.get('/', async (req, res) => {
 
     // get associates
-    res.json({ connectionStatus: "200"})
+    res.json({ message: "Connected to Reactiv API", connectionStatus: "200"})
 
 });
 

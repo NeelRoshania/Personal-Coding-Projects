@@ -224,3 +224,30 @@ SELECT id,
           ) AS bigint) AS ips_between
           
 FROM ip_addresses 
+
+-- **************************************************************************************************************
+--     Two actors who cast together the most
+--     https://www.codewars.com/kata/5818bde9559ff58bd90004a2/train/sql
+--     Status: Not Solved
+-- **************************************************************************************************************
+
+
+-- CTE
+WITH collaborations AS (
+  SELECT
+    fa.actor_id,
+    fa.film_id,
+    CONCAT(act.first_name,' ',act.last_name) as "actor",
+    flm.title
+  FROM film_actor as fa
+  LEFT JOIN actor AS act ON fa.actor_id = act.actor_id
+  LEFT JOIN film AS flm ON fa.film_id = flm.film_id
+)
+
+-- CROSS JOIN
+SELECT
+  collab.actor_id AS "first_actor_id",
+  cx_collab.actor_id AS "second_actor_id"
+FROM collaborations AS collab
+CROSS JOIN collaborations AS cx_collab
+WHERE collab.actor_id <> cx_collab.actor_id;

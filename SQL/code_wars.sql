@@ -244,10 +244,26 @@ WITH collaborations AS (
   LEFT JOIN film AS flm ON fa.film_id = flm.film_id
 )
 
--- CROSS JOIN
-SELECT
-  collab.actor_id AS "first_actor_id",
-  cx_collab.actor_id AS "second_actor_id"
+-- -- GET COMBINATIONS WITH CROSS JOIN
+-- SELECT
+--   first_collab.actor_id AS "actor_first_id",
+--   second_collab.actor_id AS "actor_second_id"
+-- FROM (
+--   SELECT 
+--     DISTINCT actor_id
+--   FROM collaborations AS collab
+-- ) AS first_collab
+-- CROSS JOIN (
+--   SELECT 
+--     DISTINCT actor_id
+--   FROM collaborations AS collab
+-- ) as second_collab
+-- WHERE first_collab.actor_id < second_collab.actor_id
+-- ORDER BY first_collab.actor_id ASC, second_collab.actor_id ASC;
+
+-- Actors by ordered by film
+SELECT 
+  film_id,
+  actor_id
 FROM collaborations AS collab
-CROSS JOIN collaborations AS cx_collab
-WHERE collab.actor_id <> cx_collab.actor_id;
+ORDER BY film_id DESC;

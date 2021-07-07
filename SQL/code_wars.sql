@@ -231,7 +231,6 @@ FROM ip_addresses
 --     Status: Not Solved
 -- **************************************************************************************************************
 
-
 -- CTE
 WITH collaborations AS (
   SELECT
@@ -245,25 +244,31 @@ WITH collaborations AS (
 )
 
 -- -- GET COMBINATIONS WITH CROSS JOIN
--- SELECT
---   first_collab.actor_id AS "actor_first_id",
---   second_collab.actor_id AS "actor_second_id"
--- FROM (
---   SELECT 
---     DISTINCT actor_id
---   FROM collaborations AS collab
--- ) AS first_collab
--- CROSS JOIN (
---   SELECT 
---     DISTINCT actor_id
---   FROM collaborations AS collab
--- ) as second_collab
--- WHERE first_collab.actor_id < second_collab.actor_id
--- ORDER BY first_collab.actor_id ASC, second_collab.actor_id ASC;
+SELECT
+  first_collab.actor_id AS "actor_first_id",
+  second_collab.actor_id AS "actor_second_id"
+  -- COUNT film_id WHERE
+FROM (
+      --   first actor
+      SELECT 
+        DISTINCT actor_id
+      FROM collaborations AS collab
+) AS first_collab
 
--- Actors by ordered by film
-SELECT 
-  film_id,
-  actor_id
-FROM collaborations AS collab
-ORDER BY film_id DESC;
+CROSS JOIN (
+      --   second_actor
+      SELECT 
+        DISTINCT actor_id
+      FROM collaborations AS collab
+) AS second_collab
+ 
+WHERE first_collab.actor_id < second_collab.actor_id
+ORDER BY first_collab.actor_id ASC, second_collab.actor_id ASC;
+
+-- -- GET COMBINATIONS BY GROUPING ACTOR AND TITLE
+-- SELECT
+--   film_id,
+--   actor_id
+-- FROM collaborations AS collab
+-- ORDER BY film_id DESC;
+

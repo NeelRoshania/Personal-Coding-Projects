@@ -248,6 +248,16 @@ SELECT
   first_collab.actor_id AS "actor_first_id",
   second_collab.actor_id AS "actor_second_id"
   -- COUNT film_id WHERE
+  (
+    SELECT
+      COUNT(clb.film_id),
+    FROM collaborations AS clb
+    WHERE 
+      (first_collab.actor_id IN fa.film_id) AND
+      (second_collab.actor_id IN fa.film_id)
+    GROUP BY clb.film_id
+      
+  )
 FROM (
       --   first actor
       SELECT 

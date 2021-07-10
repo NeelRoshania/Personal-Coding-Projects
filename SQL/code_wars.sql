@@ -243,21 +243,19 @@ WITH collaborations AS (
   LEFT JOIN film AS flm ON fa.film_id = flm.film_id
 )
 
--- -- GET COMBINATIONS WITH CROSS JOIN
+-- GET COMBINATIONS WITH CROSS JOIN
 SELECT
-  first_collab.actor_id AS "actor_first_id",
-  second_collab.actor_id AS "actor_second_id"
-  -- COUNT film_id WHERE
-  (
+  first_collab.actor_id   AS "actor_first_id",
+  second_collab.actor_id  AS "actor_second_id",
+  (SELECT COUNT(*) FROM (
+    -- SELECT FILM_ID WHERE FIRST_ACTOR AND SECOND_ACTOR IN ACTOR_ID
     SELECT
-      COUNT(clb.film_id),
-    FROM collaborations AS clb
-    WHERE 
-      (first_collab.actor_id IN fa.film_id) AND
-      (second_collab.actor_id IN fa.film_id)
-    GROUP BY clb.film_id
-      
-  )
+      COUNT(DISTINCT c.film_id)
+    FROM collaborations AS c
+    WHERE c.actor_id IN (first_collab.actor_id, second_collab.actor_id)
+    GROUP BY c.film_id
+    HAVING COUNT(c.film_id) > 1
+  ) AS cnt_collab)        AS collaboration_cnt
 FROM (
       --   first actor
       SELECT 
@@ -271,14 +269,21 @@ CROSS JOIN (
         DISTINCT actor_id
       FROM collaborations AS collab
 ) AS second_collab
- 
 WHERE first_collab.actor_id < second_collab.actor_id
-ORDER BY first_collab.actor_id ASC, second_collab.actor_id ASC;
+-- ORDER BY first_collab.actor_id ASC, second_collab.actor_id ASC;
+ORDER BY collaboration_cnt DESC;
 
 -- -- GET COMBINATIONS BY GROUPING ACTOR AND TITLE
--- SELECT
---   film_id,
---   actor_id
--- FROM collaborations AS collab
--- ORDER BY film_id DESC;
+-- SELECT 
+--   COUNT(*)
+-- FROM (
+--   SELECT
+--     COUNT(c.film_id)
+--   FROM collaborations AS c
+--   WHERE (c.actor_id IN (165, 166))
+--   GROUP BY c.film_id
+--   HAVING COUNT(c.film_id) > 1
+--   ORDER BY "count" DESC
+-- ) as test
+
 

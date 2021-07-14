@@ -231,8 +231,12 @@ FROM ip_addresses
 --     Status: Not Solved
 -- **************************************************************************************************************
 
+
+-- References
+--   - https://medium.com/@mahdis.pw/coding-challenge-2-4bbfa3e78f8f
+
 -- CTE
-WITH collaborations AS (
+WITH flm_actr_lkp AS (
   SELECT
     fa.actor_id,
     fa.film_id,
@@ -241,49 +245,30 @@ WITH collaborations AS (
   FROM film_actor as fa
   LEFT JOIN actor AS act ON fa.actor_id = act.actor_id
   LEFT JOIN film AS flm ON fa.film_id = flm.film_id
-)
+),
 
 -- GET COMBINATIONS WITH CROSS JOIN
-SELECT
-  first_collab.actor_id   AS "actor_first_id",
-  second_collab.actor_id  AS "actor_second_id",
-  (SELECT COUNT(*) FROM (
-    -- SELECT FILM_ID WHERE FIRST_ACTOR AND SECOND_ACTOR IN ACTOR_ID
-    SELECT
-      COUNT(DISTINCT c.film_id)
-    FROM collaborations AS c
-    WHERE c.actor_id IN (first_collab.actor_id, second_collab.actor_id)
-    GROUP BY c.film_id
-    HAVING COUNT(c.film_id) > 1
-  ) AS cnt_collab)        AS collaboration_cnt
-FROM (
-      --   first actor
-      SELECT 
-        DISTINCT actor_id
-      FROM collaborations AS collab
-) AS first_collab
+collaborations AS (
+  SELECT
+    c1.actor_id AS act1, 
+    c2.actor_id AS act2,
+    c1.film_id
+  FROM flm_actr_lkp AS c1
+    INNER JOIN flm_actr_lkp AS c2
+    ON (c1.film_id = c2.film_id) AND (c1.actor_id < c2.actor_id)
 
-CROSS JOIN (
-      --   second_actor
-      SELECT 
-        DISTINCT actor_id
-      FROM collaborations AS collab
-) AS second_collab
-WHERE first_collab.actor_id < second_collab.actor_id
--- ORDER BY first_collab.actor_id ASC, second_collab.actor_id ASC;
-ORDER BY collaboration_cnt DESC;
+)
 
--- -- GET COMBINATIONS BY GROUPING ACTOR AND TITLE
--- SELECT 
---   COUNT(*)
--- FROM (
---   SELECT
---     COUNT(c.film_id)
---   FROM collaborations AS c
---   WHERE (c.actor_id IN (165, 166))
---   GROUP BY c.film_id
---   HAVING COUNT(c.film_id) > 1
---   ORDER BY "count" DESC
--- ) as test
+SELECT 
+--   collab.act1,
+--   collab.act2,
+  fa1.actor as "full_name_actr1",
+  fa2.actor as "full_name_actr2",
+  COUNT(fa1.film_id) AS "cnt_collaborations"
+FROM collaborations AS collab
+LEFT JOIN flm_actr_lkp AS fa1 ON (fa1.actor_id = collab.act1)
+LEFT JOIN flm_actr_lkp AS fa2 ON (fa2.actor_id = collab.act2)
+GROUP BY fa1.actor, fa2.actor
+ORDER BY COUNT(fa1.film_id) DESC;
 
 

@@ -229,46 +229,48 @@ FROM ip_addresses
 --     Two actors who cast together the most
 --     https://www.codewars.com/kata/5818bde9559ff58bd90004a2/train/sql
 --     Status: Not Solved
+--     References
+--        - https://medium.com/@mahdis.pw/coding-challenge-2-4bbfa3e78f8f
+--     Objectives: 
+--      - find two actors who cast together the most and 
+--      - list titles of only those movies they were casting together.
 -- **************************************************************************************************************
 
--- CTE
-WITH collaborations AS (
+-- GET COMBINATIONS WITH CROSS JOIN
+WITH collabs AS (
   SELECT
-    fa.actor_id,
-    fa.film_id,
-    CONCAT(act.first_name,' ',act.last_name) as "actor",
-    flm.title
-  FROM film_actor as fa
-  LEFT JOIN actor AS act ON fa.actor_id = act.actor_id
-  LEFT JOIN film AS flm ON fa.film_id = flm.film_id
+    fa1.actor_id AS act1, 
+    fa2.actor_id AS act2,
+    fa1.film_id
+  FROM film_actor AS fa1
+    INNER JOIN film_actor AS fa2
+    ON (fa1.film_id = fa2.film_id) AND (fa1.actor_id < fa2.actor_id)
+
 )
 
--- -- GET COMBINATIONS WITH CROSS JOIN
+-- LIST ACTORS AND FILMS THAT HAVE COLLABORATED THE MOST
 SELECT
-  first_collab.actor_id AS "actor_first_id",
-  second_collab.actor_id AS "actor_second_id"
-  -- COUNT film_id WHERE
-FROM (
-      --   first actor
-      SELECT 
-        DISTINCT actor_id
-      FROM collaborations AS collab
-) AS first_collab
+  -- c.act1,
+  -- c.act2,
+  -- c.film_id,
+  CONCAT(a1.first_name, ' ', a1.last_name) AS "first_actor",
+  CONCAT(a2.first_name, ' ', a2.last_name) AS "second_actor",
+  f.title
+FROM collabs AS c
+INNER JOIN (
+  -- ACTORS THAT HAVE COLLABORATED THE MOST
+  SELECT 
+    act1,
+    act2,
+    COUNT(film_id)
+  FROM collabs
+  GROUP BY act1, act2
+  ORDER BY COUNT(film_id) DESC
+  LIMIT 1
+) AS mc ON (mc.act1 = c.act1) AND (mc.act2 = c.act2)
+INNER JOIN actor AS a1 ON (c.act1 = a1.actor_id)
+INNER JOIN actor AS a2 ON (c.act2 = a2.actor_id)
+INNER JOIN film  AS f ON (c.film_id = f.film_id)
+;
 
-CROSS JOIN (
-      --   second_actor
-      SELECT 
-        DISTINCT actor_id
-      FROM collaborations AS collab
-) AS second_collab
- 
-WHERE first_collab.actor_id < second_collab.actor_id
-ORDER BY first_collab.actor_id ASC, second_collab.actor_id ASC;
-
--- -- GET COMBINATIONS BY GROUPING ACTOR AND TITLE
--- SELECT
---   film_id,
---   actor_id
--- FROM collaborations AS collab
--- ORDER BY film_id DESC;
 
